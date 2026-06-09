@@ -10,7 +10,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 // Special admin alias: "AC ADMIN" / "AC ADMIN"
-const ADMIN_EMAIL = "acadmin@annachique.com";
+const ADMIN_EMAIL = "admin@annachique.com";
 
 function AuthPage() {
   const navigate = useNavigate();
@@ -27,11 +27,19 @@ function AuthPage() {
     });
   }, [navigate]);
 
-  const mapIdentifier = (id: string) => {
-    const v = id.trim();
-    if (v.toUpperCase() === "AC ADMIN") return ADMIN_EMAIL;
-    return v;
-  };
+ const mapIdentifier = (id: string) => {
+  const v = id.trim();
+
+  if (
+    v.toUpperCase() === "ADMIN" ||
+    v.toUpperCase() === "ANNA" ||
+    v.toUpperCase() === "DONAA"
+  ) {
+    return ADMIN_EMAIL;
+  }
+
+  return v;
+};
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
