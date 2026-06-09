@@ -64,13 +64,13 @@ function Catalog() {
   }, [products, filter]);
 
   return (
-    <div className="min-h-screen bg-[#070306] text-white">
+    <div className="min-h-screen bg-gradient-to-b from-rose-baby/30 to-white text-foreground transition-colors dark:from-[#170812] dark:via-[#12070d] dark:to-[#070306] dark:text-white">
       <div className="mx-auto max-w-7xl px-4 py-10 md:px-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-pink-700/40 bg-[#12070d] px-4 py-2 text-sm font-bold text-white shadow-soft">
-          💕 Catálogo
-        </div>
+        <div className="inline-flex items-center gap-2 rounded-full border border-rose-baby/70 bg-white px-4 py-2 text-sm font-bold text-foreground shadow-soft transition-colors dark:border-pink-700/40 dark:bg-[#12070d] dark:text-white">
+  💕 Catálogo
+</div>
 
-        <h1 className="mt-4 font-display text-4xl font-extrabold text-white md:text-5xl">
+        <h1 className="mt-4 font-display text-4xl font-extrabold text-foreground transition-colors dark:text-white md:text-5xl">
           Todas as <span className="text-primary">peças</span>
         </h1>
 
@@ -79,7 +79,7 @@ function Catalog() {
           className={`mt-6 flex flex-wrap items-center justify-between gap-3 rounded-3xl border p-5 shadow-soft ${
             left === 0
               ? "border-green-500/40 bg-green-600 text-white"
-              : "border-pink-700/40 bg-[#12070d] text-white"
+              : "border-rose-baby/70 bg-white text-foreground dark:border-pink-700/40 dark:bg-[#12070d] dark:text-white"
           }`}
         >
           <div className="font-semibold text-white">
@@ -109,7 +109,7 @@ function Catalog() {
               className={`rounded-full border px-4 py-2 text-sm font-bold transition ${
                 filter === f.id
                   ? "border-primary bg-primary text-white shadow-glow"
-                  : "border-pink-700/40 bg-[#12070d] text-white hover:border-primary hover:bg-[#2a101c] hover:text-pink-300"
+                  : "border-rose-baby/70 bg-white text-foreground hover:border-primary hover:bg-secondary hover:text-primary dark:border-pink-700/40 dark:bg-[#12070d] dark:text-white dark:hover:border-primary dark:hover:bg-[#2a101c] dark:hover:text-pink-300"
               }`}
             >
               {f.label}

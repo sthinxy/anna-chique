@@ -19,12 +19,12 @@ export const Route = createFileRoute("/carrinho")({
   head: () => ({ meta: [{ title: "Carrinho · Anna Chique" }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(settingsQuery),
   errorComponent: ({ error }) => (
-    <div className="min-h-screen bg-[#070306] p-8 text-white">
+    <div className="min-h-screen bg-background p-8 text-foreground transition-colors dark:bg-[#070306] dark:text-white">
       {error.message}
     </div>
   ),
   notFoundComponent: () => (
-    <div className="min-h-screen bg-[#070306] p-8 text-white">
+    <div className="min-h-screen bg-background p-8 text-foreground transition-colors dark:bg-[#070306] dark:text-white">
       Não encontrado
     </div>
   ),
@@ -50,15 +50,15 @@ function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-[#070306] text-white">
+      <div className="min-h-screen bg-gradient-to-b from-rose-baby/30 to-white text-foreground transition-colors dark:from-[#170812] dark:via-[#12070d] dark:to-[#070306] dark:text-white">
         <div className="mx-auto max-w-2xl px-4 py-20 text-center md:px-8">
           <ShoppingBag className="mx-auto h-16 w-16 text-primary" />
 
-          <h1 className="mt-4 font-display text-3xl font-extrabold">
+          <h1 className="mt-4 font-display text-3xl font-extrabold text-foreground transition-colors dark:text-white">
             Seu carrinho está vazio
           </h1>
 
-          <p className="mt-2 text-white/65">
+          <p className="mt-2 text-muted-foreground transition-colors dark:text-white/65">
             Volte ao catálogo e escolha suas peças.
           </p>
 
@@ -154,17 +154,17 @@ function CartPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070306] text-white">
+    <div className="min-h-screen bg-gradient-to-b from-rose-baby/30 to-white text-foreground transition-colors dark:from-[#170812] dark:via-[#12070d] dark:to-[#070306] dark:text-white">
       <div className="mx-auto max-w-5xl px-4 py-10 md:px-8">
-        <h1 className="font-display text-4xl font-extrabold text-white md:text-5xl">
+        <h1 className="font-display text-4xl font-extrabold text-foreground transition-colors dark:text-white md:text-5xl">
           Seu <span className="text-primary">carrinho</span>
         </h1>
 
         <div
-          className={`mt-5 rounded-3xl border p-5 font-semibold shadow-soft ${
+          className={`mt-5 rounded-3xl border p-5 font-semibold shadow-soft transition-colors ${
             completed
-              ? "border-green-500/40 bg-green-600 text-white"
-              : "border-pink-700/40 bg-[#12070d] text-white"
+              ? "border-green-500/40 bg-success text-white"
+              : "border-rose-baby/70 bg-white text-foreground dark:border-pink-700/40 dark:bg-[#12070d] dark:text-white"
           }`}
         >
           {completed ? (
@@ -183,7 +183,7 @@ function CartPage() {
             {items.map((i) => (
               <div
                 key={i.id}
-                className="flex gap-4 rounded-3xl border border-pink-700/40 bg-[#12070d] p-3 text-white shadow-card"
+                className="flex gap-4 rounded-3xl border border-rose-baby/70 bg-white p-3 text-foreground shadow-card transition-colors dark:border-pink-700/40 dark:bg-[#12070d] dark:text-white"
               >
                 {i.image_url && (
                   <img
@@ -194,7 +194,9 @@ function CartPage() {
                 )}
 
                 <div className="flex-1">
-                  <div className="font-bold text-white">{i.name}</div>
+                  <div className="font-bold text-foreground transition-colors dark:text-white">
+                    {i.name}
+                  </div>
 
                   <div className="text-sm font-bold text-primary">
                     R$ {i.price.toFixed(2)}
@@ -203,19 +205,19 @@ function CartPage() {
                   <div className="mt-2 flex items-center gap-2">
                     <button
                       onClick={() => setQty(i.id, i.qty - 1)}
-                      className="grid h-9 w-9 place-items-center rounded-full bg-[#2a101c] text-white hover:bg-pink-950"
+                      className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-foreground transition hover:bg-rose-baby dark:bg-[#2a101c] dark:text-white dark:hover:bg-pink-950"
                       aria-label="Menos"
                     >
                       <Minus className="h-4 w-4" />
                     </button>
 
-                    <div className="w-10 text-center font-bold text-white">
+                    <div className="w-10 text-center font-bold text-foreground transition-colors dark:text-white">
                       {i.qty}
                     </div>
 
                     <button
                       onClick={() => setQty(i.id, i.qty + 1)}
-                      className="grid h-9 w-9 place-items-center rounded-full bg-primary text-white hover:opacity-90"
+                      className="grid h-9 w-9 place-items-center rounded-full bg-primary text-white transition hover:opacity-90"
                       aria-label="Mais"
                     >
                       <Plus className="h-4 w-4" />
@@ -223,7 +225,7 @@ function CartPage() {
 
                     <button
                       onClick={() => remove(i.id)}
-                      className="ml-auto grid h-9 w-9 place-items-center rounded-full text-red-400 hover:bg-red-500/10"
+                      className="ml-auto grid h-9 w-9 place-items-center rounded-full text-red-500 transition hover:bg-red-500/10 dark:text-red-400"
                       aria-label="Remover"
                     >
                       <Trash2 className="h-4 w-4" />
@@ -231,7 +233,7 @@ function CartPage() {
                   </div>
                 </div>
 
-                <div className="text-right font-bold text-white">
+                <div className="text-right font-bold text-foreground transition-colors dark:text-white">
                   R$ {(i.qty * i.price).toFixed(2)}
                 </div>
               </div>
@@ -239,35 +241,35 @@ function CartPage() {
           </div>
 
           {/* Summary */}
-          <div className="h-fit rounded-3xl border border-pink-700/40 bg-[#12070d] p-5 text-white shadow-card">
-            <h3 className="font-display text-2xl font-bold text-white">
+          <div className="h-fit rounded-3xl border border-rose-baby/70 bg-white p-5 text-foreground shadow-card transition-colors dark:border-pink-700/40 dark:bg-[#12070d] dark:text-white">
+            <h3 className="font-display text-2xl font-bold text-foreground transition-colors dark:text-white">
               Finalizar
             </h3>
 
             <div className="mt-4 space-y-3">
               <input
-                className="w-full rounded-xl border border-pink-800/50 bg-[#2a101c] p-3 text-sm text-white outline-none placeholder:text-white/45 focus:border-primary"
+                className="w-full rounded-xl border border-rose-baby/70 bg-white p-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary dark:border-pink-800/50 dark:bg-[#2a101c] dark:text-white dark:placeholder:text-white/45"
                 placeholder="Seu nome"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
 
               <input
-                className="w-full rounded-xl border border-pink-800/50 bg-[#2a101c] p-3 text-sm text-white outline-none placeholder:text-white/45 focus:border-primary"
+                className="w-full rounded-xl border border-rose-baby/70 bg-white p-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary dark:border-pink-800/50 dark:bg-[#2a101c] dark:text-white dark:placeholder:text-white/45"
                 placeholder="WhatsApp com DDD"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
 
               <input
-                className="w-full rounded-xl border border-pink-800/50 bg-[#2a101c] p-3 text-sm text-white outline-none placeholder:text-white/45 focus:border-primary"
+                className="w-full rounded-xl border border-rose-baby/70 bg-white p-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary dark:border-pink-800/50 dark:bg-[#2a101c] dark:text-white dark:placeholder:text-white/45"
                 placeholder="Cidade / Estado"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
               />
 
               <select
-                className="w-full rounded-xl border border-pink-800/50 bg-[#2a101c] p-3 text-sm text-white outline-none focus:border-primary"
+                className="w-full rounded-xl border border-rose-baby/70 bg-white p-3 text-sm text-foreground outline-none focus:border-primary dark:border-pink-800/50 dark:bg-[#2a101c] dark:text-white"
                 value={delivery}
                 onChange={(e) => setDelivery(e.target.value)}
               >
@@ -278,7 +280,7 @@ function CartPage() {
               </select>
             </div>
 
-            <div className="mt-5 space-y-1.5 border-t border-pink-900/50 pt-4 text-sm text-white/80">
+            <div className="mt-5 space-y-1.5 border-t border-rose-baby/70 pt-4 text-sm text-foreground/75 transition-colors dark:border-pink-900/50 dark:text-white/80">
               <div className="flex justify-between">
                 <span>Peças</span>
                 <span>{t.totalQty}</span>
@@ -294,7 +296,7 @@ function CartPage() {
                 <span>R$ {t.shippingFee.toFixed(2)}</span>
               </div>
 
-              <div className="flex justify-between pt-2 text-lg font-extrabold text-white">
+              <div className="flex justify-between pt-2 text-lg font-extrabold text-foreground transition-colors dark:text-white">
                 <span>Total</span>
                 <span className="text-primary">R$ {t.total.toFixed(2)}</span>
               </div>
@@ -312,7 +314,7 @@ function CartPage() {
 
             <Link
               to="/"
-              className="mt-3 block text-center text-sm text-white/60 transition hover:text-primary"
+              className="mt-3 block text-center text-sm text-muted-foreground transition hover:text-primary dark:text-white/60"
             >
               Continuar comprando
             </Link>
