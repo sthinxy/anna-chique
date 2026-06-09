@@ -16,7 +16,6 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedMinhaContaRouteImport } from './routes/_authenticated/minha-conta'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
-import { Route as ApiPublicAiChatRouteImport } from './routes/api/public/ai-chat'
 
 const CatalogoRoute = CatalogoRouteImport.update({
   id: '/catalogo',
@@ -52,11 +51,6 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const ApiPublicAiChatRoute = ApiPublicAiChatRouteImport.update({
-  id: '/api/public/ai-chat',
-  path: '/api/public/ai-chat',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -65,7 +59,6 @@ export interface FileRoutesByFullPath {
   '/catalogo': typeof CatalogoRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/minha-conta': typeof AuthenticatedMinhaContaRoute
-  '/api/public/ai-chat': typeof ApiPublicAiChatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -74,7 +67,6 @@ export interface FileRoutesByTo {
   '/catalogo': typeof CatalogoRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/minha-conta': typeof AuthenticatedMinhaContaRoute
-  '/api/public/ai-chat': typeof ApiPublicAiChatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -85,7 +77,6 @@ export interface FileRoutesById {
   '/catalogo': typeof CatalogoRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/minha-conta': typeof AuthenticatedMinhaContaRoute
-  '/api/public/ai-chat': typeof ApiPublicAiChatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -96,16 +87,8 @@ export interface FileRouteTypes {
     | '/catalogo'
     | '/admin'
     | '/minha-conta'
-    | '/api/public/ai-chat'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/auth'
-    | '/carrinho'
-    | '/catalogo'
-    | '/admin'
-    | '/minha-conta'
-    | '/api/public/ai-chat'
+  to: '/' | '/auth' | '/carrinho' | '/catalogo' | '/admin' | '/minha-conta'
   id:
     | '__root__'
     | '/'
@@ -115,7 +98,6 @@ export interface FileRouteTypes {
     | '/catalogo'
     | '/_authenticated/admin'
     | '/_authenticated/minha-conta'
-    | '/api/public/ai-chat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -124,7 +106,6 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CarrinhoRoute: typeof CarrinhoRoute
   CatalogoRoute: typeof CatalogoRoute
-  ApiPublicAiChatRoute: typeof ApiPublicAiChatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -178,13 +159,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/api/public/ai-chat': {
-      id: '/api/public/ai-chat'
-      path: '/api/public/ai-chat'
-      fullPath: '/api/public/ai-chat'
-      preLoaderRoute: typeof ApiPublicAiChatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -207,7 +181,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CarrinhoRoute: CarrinhoRoute,
   CatalogoRoute: CatalogoRoute,
-  ApiPublicAiChatRoute: ApiPublicAiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

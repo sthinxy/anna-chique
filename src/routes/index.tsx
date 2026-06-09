@@ -365,49 +365,45 @@ function Home() {
       {/* FAQ */}
       <FAQ />
 
-      {/* CTA FINAL */}
-      <section className="section-pad relative overflow-hidden text-white">
+       {/* CTA FINAL */}
+      <section className="section-pad relative overflow-hidden bg-rose-baby/25 text-foreground transition-colors dark:bg-[#070306] dark:text-white">
         <div
-          className="absolute inset-0 -z-10"
-          style={{ background: "var(--gradient-rose)" }}
-        />
-
-        <div
-          className="absolute inset-0 -z-10 opacity-30"
+          className="absolute inset-0 -z-10 opacity-80 dark:opacity-100"
           style={{
-            background: "radial-gradient(circle at 30% 30%, white 0%, transparent 50%)",
+            background:
+              "radial-gradient(circle at 50% 20%, rgba(255, 46, 147, 0.10) 0%, transparent 45%)",
           }}
         />
 
         <div className="mx-auto max-w-4xl px-4 text-center md:px-8">
-          <Sparkles className="mx-auto h-10 w-10" />
+          <Sparkles className="mx-auto h-10 w-10 text-primary dark:text-white" />
 
-          <h2 className="mt-4 font-display text-4xl font-extrabold md:text-6xl">
+          <h2 className="mt-4 font-display text-4xl font-extrabold text-foreground transition-colors dark:text-white md:text-6xl">
             Bora começar a revender?
           </h2>
 
-          <p className="mt-4 text-lg opacity-90">
+          <p className="mt-4 text-lg text-foreground/75 transition-colors dark:text-white/85">
             Manda oi no WhatsApp ou já monta seu pedido no catálogo.
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <a
               href={`https://wa.me/${settings.whatsapp}`}
-              className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-white px-7 font-bold text-primary shadow-glow transition hover:scale-105"
+              className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-white px-7 font-bold text-primary shadow-soft transition hover:scale-105 dark:bg-white dark:text-primary"
             >
               <MessageCircle className="h-5 w-5" /> Falar no WhatsApp
             </a>
 
             <Link
               to="/catalogo"
-              className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-foreground px-7 font-bold text-white transition hover:scale-105 dark:bg-[#12070d]"
+              className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-foreground px-7 font-bold text-white transition hover:scale-105 dark:bg-[#12070d] dark:text-white"
             >
               <ShoppingBag className="h-5 w-5" /> Ver catálogo
             </Link>
 
             <a
               href="https://www.instagram.com/annachique_/"
-              className="inline-flex min-h-[52px] items-center gap-2 rounded-full border-2 border-white px-7 font-bold text-white transition hover:bg-white hover:text-primary"
+              className="inline-flex min-h-[52px] items-center gap-2 rounded-full border-2 border-primary px-7 font-bold text-primary transition hover:bg-primary hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-primary"
             >
               <Instagram className="h-5 w-5" /> Instagram
             </a>
