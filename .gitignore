@@ -7,20 +7,27 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build outputs
 dist
 dist-ssr
 .output
 .vinxi
 .tanstack/**
 .nitro
-*.local
+
+# Vercel local/output files
+.vercel/
+.vercel/output/
 
 # Environment variables
 .env
 .env.*
 !.env.example
-auth.tsx
+*.local
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
@@ -35,4 +42,3 @@ auth.tsx
 *.njsproj
 *.sln
 *.sw?
-.vercel/
