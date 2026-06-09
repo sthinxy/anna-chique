@@ -116,7 +116,7 @@ function AuthPage() {
             <input
               required
               className="w-full rounded-xl border bg-white p-3 outline-none focus:border-primary"
-              placeholder="E-mail (ou AC ADMIN para admin)"
+              placeholder="E-mail"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
             />
@@ -138,7 +138,7 @@ function AuthPage() {
           </form>
 
           <p className="mt-4 text-center text-xs text-muted-foreground">
-            Admin: usuário <b>AC ADMIN</b>, senha <b>AC ADMIN</b> (apenas no primeiro acesso é preciso criar a conta).
+            (apenas no primeiro acesso é preciso criar a conta).
           </p>
         </div>
       </div>
