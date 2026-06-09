@@ -110,12 +110,49 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+const themeScript = `
+(function () {
+  try {
+    var theme = localStorage.getItem("theme");
+
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.style.colorScheme = "light";
+    }
+  } catch (e) {}
+})();
+`;
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              html.dark,
+              html.dark body {
+                background: #070306;
+                color-scheme: dark;
+              }
+
+              html:not(.dark),
+              html:not(.dark) body {
+                background: #fff7fb;
+                color-scheme: light;
+              }
+            `,
+          }}
+        />
+
         <HeadContent />
       </head>
+
       <body>
         {children}
         <Scripts />

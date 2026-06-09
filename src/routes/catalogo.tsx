@@ -10,7 +10,11 @@ export const Route = createFileRoute("/catalogo")({
   head: () => ({
     meta: [
       { title: "Catálogo · Anna Chique Atacado" },
-      { name: "description", content: "Catálogo completo de vestidos e conjuntos femininos no atacado, R$25 a peça, mínimo 12." },
+      {
+        name: "description",
+        content:
+          "Catálogo completo de vestidos e conjuntos femininos no atacado, R$25 a peça, mínimo 12.",
+      },
     ],
   }),
   loader: ({ context }) =>
@@ -18,8 +22,16 @@ export const Route = createFileRoute("/catalogo")({
       context.queryClient.ensureQueryData(productsQuery),
       context.queryClient.ensureQueryData(settingsQuery),
     ]),
-  errorComponent: ({ error }) => <div className="p-8">{error.message}</div>,
-  notFoundComponent: () => <div className="p-8">Não encontrado</div>,
+  errorComponent: ({ error }) => (
+    <div className="min-h-screen bg-[#070306] p-8 text-white">
+      {error.message}
+    </div>
+  ),
+  notFoundComponent: () => (
+    <div className="min-h-screen bg-[#070306] p-8 text-white">
+      Não encontrado
+    </div>
+  ),
   component: Catalog,
 });
 
@@ -36,6 +48,7 @@ function Catalog() {
   const { data: products } = useSuspenseQuery(productsQuery);
   const { data: settings } = useSuspenseQuery(settingsQuery);
   const [filter, setFilter] = useState("all");
+
   const cart = useCart((s) => s.items);
   const totalQty = cart.reduce((s, i) => s + i.qty, 0);
   const left = Math.max(0, settings.min_pieces - totalQty);
@@ -51,32 +64,36 @@ function Catalog() {
   }, [products, filter]);
 
   return (
-    <div className="bg-gradient-to-b from-rose-baby/30 to-white">
+    <div className="min-h-screen bg-[#070306] text-white">
       <div className="mx-auto max-w-7xl px-4 py-10 md:px-8">
-        <div className="chip">💕 Catálogo</div>
-        <h1 className="mt-3 font-display text-4xl font-extrabold md:text-5xl">
+        <div className="inline-flex items-center gap-2 rounded-full border border-pink-700/40 bg-[#12070d] px-4 py-2 text-sm font-bold text-white shadow-soft">
+          💕 Catálogo
+        </div>
+
+        <h1 className="mt-4 font-display text-4xl font-extrabold text-white md:text-5xl">
           Todas as <span className="text-primary">peças</span>
         </h1>
 
         {/* Aviso do mínimo */}
         <div
-          className={`mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl p-4 ${
+          className={`mt-6 flex flex-wrap items-center justify-between gap-3 rounded-3xl border p-5 shadow-soft ${
             left === 0
-              ? "bg-success text-white"
-              : "bg-foreground text-white"
+              ? "border-green-500/40 bg-green-600 text-white"
+              : "border-pink-700/40 bg-[#12070d] text-white"
           }`}
         >
-          <div className="font-semibold">
+          <div className="font-semibold text-white">
             {left === 0
               ? `🎉 Pedido mínimo completo! Você já pode enviar (${totalQty} peças).`
               : totalQty === 0
                 ? `Pedido mínimo: ${settings.min_pieces} peças. Comece a escolher!`
                 : `Faltam ${left} peças para fechar seu atacado (${totalQty}/${settings.min_pieces}).`}
           </div>
+
           {totalQty > 0 && (
             <Link
               to="/carrinho"
-              className="rounded-full bg-white px-5 py-2 font-bold text-foreground"
+              className="rounded-full bg-primary px-5 py-2 font-bold text-white transition hover:opacity-90"
             >
               Ver carrinho →
             </Link>
@@ -89,10 +106,10 @@ function Catalog() {
             <button
               key={f.id}
               onClick={() => setFilter(f.id)}
-              className={`rounded-full px-4 py-2 text-sm font-bold transition ${
+              className={`rounded-full border px-4 py-2 text-sm font-bold transition ${
                 filter === f.id
-                  ? "bg-primary text-white shadow-glow"
-                  : "bg-white text-foreground/70 hover:bg-secondary"
+                  ? "border-primary bg-primary text-white shadow-glow"
+                  : "border-pink-700/40 bg-[#12070d] text-white hover:border-primary hover:bg-[#2a101c] hover:text-pink-300"
               }`}
             >
               {f.label}
@@ -106,8 +123,9 @@ function Catalog() {
             <ProductCard key={p.id} p={p} />
           ))}
         </div>
+
         {filtered.length === 0 && (
-          <div className="mt-12 text-center text-muted-foreground">
+          <div className="mt-12 rounded-3xl border border-pink-700/40 bg-[#12070d] p-8 text-center text-white/70">
             Nenhuma peça nessa categoria por enquanto.
           </div>
         )}

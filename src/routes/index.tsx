@@ -88,13 +88,12 @@ function Home() {
                 <ShoppingBag className="h-5 w-5" /> Ver peças
               </Link>
 
-              <a
-                href="#como-comprar"
-                className="btn-hero btn-hero-hover"
-                style={{ background: "var(--color-foreground)" }}
-              >
-                <Heart className="h-5 w-5" /> Como comprar
-              </a>
+<a
+  href="#como-comprar"
+  className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-[#12070d] px-8 py-4 text-[1.05rem] font-bold text-white shadow-glow transition hover:scale-105 hover:bg-primary dark:bg-white dark:text-[#12070d] dark:hover:bg-pink-200"
+>
+  <Heart className="h-5 w-5" /> Como comprar
+</a>
 
               <a
                 href={`https://wa.me/${settings.whatsapp}`}

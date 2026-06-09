@@ -58,7 +58,7 @@ export function Header() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 glass border-b border-transparent transition-colors dark:border-pink-900/30 dark:bg-[#12070d]/90 dark:text-white">
+  <header className="sticky top-0 z-40 border-b border-rose-baby/60 bg-white/95 text-foreground shadow-sm backdrop-blur transition-colors dark:border-pink-900/40 dark:bg-[#080306]/95 dark:text-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-8">
         <Link to="/" className="flex items-center gap-2">
           <img

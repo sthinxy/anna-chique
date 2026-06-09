@@ -28,20 +28,25 @@ export function ChatWidget() {
 
   const send = async (text: string) => {
     if (!text.trim() || loading) return;
+
     const next: Msg[] = [...msgs, { role: "user", content: text }];
     setMsgs(next);
     setInput("");
     setLoading(true);
+
     try {
       const r = await fetch("/api/public/ai-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: next }),
       });
+
       const data = (await r.json()) as { reply?: string; error?: string };
+
       const reply =
         data.reply ??
         "Desculpa, amiga, tive um probleminha agora. Chama no WhatsApp +55 85 9437-4066 que a gente te atende rapidinho!";
+
       setMsgs((m) => [...m, { role: "assistant", content: reply }]);
     } catch {
       setMsgs((m) => [
@@ -69,35 +74,41 @@ export function ChatWidget() {
       </button>
 
       {open && (
-        <div className="animate-pop fixed bottom-24 right-3 z-50 flex h-[min(75dvh,560px)] w-[min(95vw,380px)] flex-col overflow-hidden rounded-3xl border bg-white shadow-glow">
+        <div className="animate-pop fixed bottom-24 right-3 z-50 flex h-[min(75dvh,560px)] w-[min(95vw,380px)] flex-col overflow-hidden rounded-3xl border border-rose-baby/70 bg-white shadow-glow transition-colors dark:border-pink-900/50 dark:bg-[#12070d]">
           <div className="flex items-center gap-3 bg-gradient-to-r from-primary to-rose-deep px-4 py-3 text-white">
             <div className="grid h-10 w-10 place-items-center rounded-full bg-white/20 text-lg font-bold">
               A
             </div>
+
             <div>
-              <div className="font-display text-lg font-bold leading-none">Assistente Anna</div>
-              <div className="text-xs opacity-90">Online · te respondo rapidinho</div>
+              <div className="font-display text-lg font-bold leading-none">
+                Assistente Anna
+              </div>
+              <div className="text-xs text-white/90">
+                Online · te respondo rapidinho
+              </div>
             </div>
           </div>
 
-          <div className="flex-1 space-y-2 overflow-y-auto bg-secondary/30 p-3">
+          <div className="flex-1 space-y-2 overflow-y-auto bg-rose-baby/25 p-3 transition-colors dark:bg-[#1a0711]">
             {msgs.map((m, i) => (
               <div
                 key={i}
                 className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${
+                  className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-relaxed shadow-soft ${
                     m.role === "user"
                       ? "bg-primary text-white"
-                      : "bg-white text-foreground shadow-soft"
+                      : "bg-white text-foreground dark:bg-[#2a101c] dark:text-white"
                   }`}
                 >
                   {m.content}
+
                   {m.role === "assistant" && (
                     <button
                       onClick={() => speak(m.content)}
-                      className="ml-2 inline-flex items-center gap-1 text-[10px] font-semibold text-primary hover:underline"
+                      className="ml-2 inline-flex items-center gap-1 text-[10px] font-semibold text-primary hover:underline dark:text-pink-300"
                     >
                       <Volume2 className="h-3 w-3" /> ouvir
                     </button>
@@ -105,26 +116,29 @@ export function ChatWidget() {
                 </div>
               </div>
             ))}
+
             {loading && (
               <div className="flex justify-start">
-                <div className="rounded-2xl bg-white px-3 py-2 text-sm shadow-soft">
+                <div className="rounded-2xl bg-white px-3 py-2 text-sm text-foreground shadow-soft dark:bg-[#2a101c] dark:text-white">
                   digitando...
                 </div>
               </div>
             )}
+
             <div className="flex flex-wrap gap-1.5 pt-2">
               {QUICK.map((q) => (
                 <button
                   key={q}
                   onClick={() => send(q)}
-                  className="rounded-full border bg-white px-3 py-1 text-xs font-semibold hover:border-primary hover:text-primary"
+                  className="rounded-full border border-rose-baby/70 bg-white px-3 py-1 text-xs font-semibold text-foreground transition hover:border-primary hover:text-primary dark:border-pink-900/50 dark:bg-[#2a101c] dark:text-white/80 dark:hover:border-pink-400 dark:hover:text-pink-300"
                 >
                   {q}
                 </button>
               ))}
+
               <a
                 href="https://wa.me/558594374066"
-                className="rounded-full bg-success px-3 py-1 text-xs font-semibold text-white hover:opacity-90"
+                className="rounded-full bg-success px-3 py-1 text-xs font-semibold text-white transition hover:opacity-90"
               >
                 Falar com atendente
               </a>
@@ -136,17 +150,18 @@ export function ChatWidget() {
               e.preventDefault();
               send(input);
             }}
-            className="flex items-center gap-2 border-t bg-white p-2"
+            className="flex items-center gap-2 border-t border-rose-baby/70 bg-white p-2 transition-colors dark:border-pink-900/50 dark:bg-[#12070d]"
           >
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Escreva sua dúvida..."
-              className="flex-1 rounded-full border bg-secondary/40 px-4 py-2.5 text-sm outline-none focus:border-primary"
+              className="flex-1 rounded-full border border-rose-baby/70 bg-secondary/40 px-4 py-2.5 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary dark:border-pink-900/50 dark:bg-[#2a101c] dark:text-white dark:placeholder:text-white/45"
             />
+
             <button
               type="submit"
-              className="grid h-10 w-10 place-items-center rounded-full bg-primary text-white shadow-soft hover:opacity-90"
+              className="grid h-10 w-10 place-items-center rounded-full bg-primary text-white shadow-soft transition hover:opacity-90 dark:bg-pink-600 dark:hover:bg-pink-500"
               aria-label="Enviar"
             >
               <Send className="h-4 w-4" />
